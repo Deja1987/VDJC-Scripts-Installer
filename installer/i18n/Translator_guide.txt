@@ -1,0 +1,49 @@
+VDJC Installer Translations
+
+This folder contains the custom installer strings used by Inno Setup.
+Edit only installer/i18n/VDJC_CustomMessages.isl.
+
+How it works
+- The main script (installer/VDJC_Setup.iss) includes this file.
+- Each entry uses the format: <language>.<Key>=<Text>
+- Keep keys exactly the same across languages.
+- Use #13#10 for line breaks inside long texts.
+
+What you should translate
+- InfoText (long info page text)
+- RequirementsTitle, RequirementsSubTitle, RequirementsDesc, RequirementsCheckbox
+- ControllersTitle, ControllersSubTitle, ControllersDesc, ControllersLabel
+- ScriptTitle, ScriptSubTitle, ScriptDesc, ScriptLabel
+- ErrControllers, ErrRequirements, ErrScript
+
+Do not change
+- The keys (left side of =)
+- #13#10 sequences
+- File/variable names like VDJC, MIXXX, UpdatePresetsAndStartMixxx.ps1
+
+ASCII note
+- This repository currently uses ASCII-only text in translations.
+- For non-Latin languages, use English for now or provide a transliteration.
+
+Quick check
+- After editing, run the installer build to verify there are no syntax errors.
+
+English template strings
+Copy these lines and translate only the text after '='.
+
+english.InfoText=This installer sets up the scripts, controller mappings, and helper utilities required to use VDJC Virtual DJ Controller with MIXXX.#13#10#13#10Important requirement:#13#10MIXXX must be installed before running this installer. The installer does not install MIXXX itself.#13#10#13#10What this installer does:#13#10- Installs VDJC mapping files into the MIXXX controllers directory#13#10- Installs the MIXXX JavaScript controller script#13#10- Installs a helper PowerShell script#13#10- Creates a Desktop shortcut to run the helper script#13#10#13#10What the PowerShell script does:#13#10- Reads effects.xml and regenerates preset/effect lists#13#10- Keeps VDJC synced with the current MIXXX configuration#13#10- Starts MIXXX after the update completes#13#10#13#10Uninstalling will remove VDJC mappings, helper files, shortcuts, and VDJC runtime data. It will not remove MIXXX or personal MIXXX settings.
+english.RequirementsTitle=Requirements
+english.RequirementsSubTitle=Confirm requirements
+english.RequirementsDesc=MIXXX must be installed before running this installer. Please confirm to continue.
+english.RequirementsCheckbox=I confirm that MIXXX is installed.
+english.ControllersTitle=Mixxx Controllers Folder
+english.ControllersSubTitle=Select your Mixxx controllers folder
+english.ControllersDesc=Choose the folder where Mixxx stores controller mappings. The installer will copy the VDJC mapping files here.
+english.ControllersLabel=Controllers folder:
+english.ScriptTitle=VDJC Script Location
+english.ScriptSubTitle=Select where to install the PowerShell script
+english.ScriptDesc=Choose a location for UpdatePresetsAndStartMixxx.ps1. Default is ProgramData, but you can change it.
+english.ScriptLabel=Script folder:
+english.ErrControllers=Please select the Mixxx controllers folder.
+english.ErrRequirements=Please confirm that MIXXX is installed to continue.
+english.ErrScript=Please select the script installation folder.
