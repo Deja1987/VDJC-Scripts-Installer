@@ -10,6 +10,7 @@ AppPublisher=Virtual DJ Console (VDJC)
 AppPublisherURL=https://github.com/Deja1987/VDJC-Scripts-Installer
 AppVerName=VDJC Mixxx Controller {#MyAppVersion}
 LicenseFile=..\LICENSE
+UninstallDisplayIcon={app}\VDJC_Setup.ico
 DefaultDirName={localappdata}\VDJC
 DisableDirPage=yes
 DisableWelcomePage=yes
@@ -120,6 +121,7 @@ german.ErrRequirements=Bitte bestaetigen, dass MIXXX installiert ist, um fortzuf
 german.ErrScript=Bitte den Ordner fuer die Skriptinstallation auswaehlen.
 
 [Files]
+Source: "VDJC_Setup.ico"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\mixxx_midi_mapping\VDJC_1.0.0-script.js"; DestDir: "{code:GetControllersDir}"; Flags: ignoreversion
 Source: "..\mixxx_midi_mapping\VDJC_1.0.0.midi.xml"; DestDir: "{code:GetControllersDir}"; Flags: ignoreversion
 Source: "..\mixxx_midi_mapping\InitShutFunctions.js"; DestDir: "{code:GetControllersDir}"; Flags: ignoreversion
