@@ -26,7 +26,7 @@ Requisitos
 
 Instalacion
 1. Asegurate de que MIXXX ya este instalado.
-2. Descarga el instalador exe desde la seccion Releases.
+2. Descarga el instalador .exe desde la seccion Releases.
 3. Ejecuta el instalador y sigue las instrucciones.
 4. Usa el acceso directo del escritorio (si se instala) para actualizar presets e iniciar MIXXX.
 5. En MIXXX, selecciona el mapeo VDJC desde la configuracion de controladores.

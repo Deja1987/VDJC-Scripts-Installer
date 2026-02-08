@@ -1,12 +1,15 @@
 ; VDJC Mixxx Controller Installer (Inno Setup)
 ; Build with Inno Setup 6+
 
+#define MyAppVersion "1.0.0"
+
 [Setup]
 AppName=VDJC Mixxx Controller
-AppVersion=1.0.0
+AppVersion={#MyAppVersion}
 AppPublisher=Virtual DJ Console (VDJC)
-AppPublisherURL=https://github.com/Deja1987/VDJC
-AppVerName=VDJC Mixxx Controller 1.0.0
+AppPublisherURL=https://github.com/Deja1987/VDJC-Scripts-Installer
+AppVerName=VDJC Mixxx Controller {#MyAppVersion}
+LicenseFile=..\LICENSE
 DefaultDirName={localappdata}\VDJC
 DisableDirPage=yes
 DisableWelcomePage=yes
@@ -45,6 +48,11 @@ Source: "..\mixxx_midi_mapping\UpdatePresetsAndStartMixxx.ps1"; DestDir: "{code:
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{localappdata}\VDJC\logs"
+Type: files; Name: "{code:GetControllersDir}\VDJC_1.0.0-script.js"
+Type: files; Name: "{code:GetControllersDir}\VDJC_1.0.0.midi.xml"
+Type: files; Name: "{code:GetControllersDir}\InitShutFunctions.js"
+Type: files; Name: "{code:GetControllersDir}\midi-components-0.2.js"
+Type: files; Name: "{code:GetScriptDir}\UpdatePresetsAndStartMixxx.ps1"
 
 [Icons]
 Name: "{userdesktop}\VDJC - Update Presets and Start Mixxx"; Filename: "{sys}\WindowsPowerShell\v1.0\powershell.exe"; Parameters: "-ExecutionPolicy Bypass -WindowStyle Hidden -File ""{code:GetScriptDir}\UpdatePresetsAndStartMixxx.ps1"" -ControllersDir ""{code:GetControllersDir}"""; WorkingDir: "{code:GetControllersDir}"
@@ -54,6 +62,7 @@ var
   ControllersDirPage: TInputDirWizardPage;
   ScriptDirPage: TInputDirWizardPage;
   InfoPage: TOutputMsgWizardPage;
+  RequirementsPage: TInputOptionWizardPage;
 
 function DefaultControllersDir(): string;
 begin
@@ -78,8 +87,20 @@ begin
     CustomMessage('InfoText')
   );
 
-  ControllersDirPage := CreateInputDirPage(
+  RequirementsPage := CreateInputOptionPage(
     InfoPage.ID,
+    'Requirements',
+    'Confirm requirements',
+    'MIXXX must be installed before running this installer. ' +
+    'Please confirm to continue.',
+    False,
+    False
+  );
+  RequirementsPage.Add('I confirm that MIXXX is installed.');
+  RequirementsPage.Values[0] := False;
+
+  ControllersDirPage := CreateInputDirPage(
+    RequirementsPage.ID,
     'Mixxx Controllers Folder',
     'Select your Mixxx controllers folder',
     'Choose the folder where Mixxx stores controller mappings. ' +
@@ -124,6 +145,16 @@ begin
     if DirValue = '' then
     begin
       MsgBox('Please select the Mixxx controllers folder.', mbError, MB_OK);
+      Result := False;
+      exit;
+    end;
+  end;
+
+  if CurPageID = RequirementsPage.ID then
+  begin
+    if not RequirementsPage.Values[0] then
+    begin
+      MsgBox('Please confirm that MIXXX is installed to continue.', mbError, MB_OK);
       Result := False;
       exit;
     end;
